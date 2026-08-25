@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sevgilimga ❤️</title>
+<style>
+  :root{
+    --rose: #e8536b;
+    --rose-deep:#b5304a;
+    --gold:#e7b975;
+    --cream:#fff6f2;
+    --ink:#3a2230;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{
+    height:100%;
+    background: radial-gradient(ellipse at top, #3a1425 0%, #1c0a15 55%, #0d0509 100%);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--cream);
+    overflow-x:hidden;
+  }
+  .stars{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+  }
+  .star{
+    position:absolute; width:2px; height:2px; background:#fff;
+    border-radius:50%; opacity:.6; animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{ 0%,100%{opacity:.2} 50%{opacity:1} }
+
+  .hearts{
+    position:fixed; inset:0; pointer-events:none; z-index:1;
+  }
+  .heart{
+    position:absolute; bottom:-10%; font-size:20px; opacity:.75;
+    animation: float 9s linear infinite;
+    color: var(--rose);
+    filter: drop-shadow(0 0 6px rgba(232,83,107,.6));
+  }
+  @keyframes float{
+    0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    10%{opacity:.8;}
+    100%{ transform: translateY(-115vh) translateX(var(--drift,30px)) rotate(360deg); opacity:0;}
+  }
+
+  main{
+    position:relative; z-index:2;
+    min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 8vh 6vw 12vh;
+  }
+
+  .eyebrow{
+    letter-spacing:.35em; text-transform:uppercase; font-size:.75rem;
+    color: var(--gold); font-family: Georgia, serif; opacity:.9;
+    margin-bottom: 1.4rem;
+  }
+
+  h1{
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    font-weight:400;
+    line-height:1.08;
+    background: linear-gradient(180deg, #ffe3ea 0%, var(--rose) 55%, var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    margin-bottom: 1.2rem;
+    animation: reveal 1.6s ease forwards;
+    opacity:0; transform: translateY(20px);
+  }
+  @keyframes reveal{ to{ opacity:1; transform:none; } }
+
+  .subtitle{
+    font-size: clamp(1rem, 2.2vw, 1.3rem);
+    max-width: 560px;
+    line-height:1.75;
+    color:#f3d8de;
+    margin-bottom: 2.4rem;
+    animation: reveal 1.6s ease .4s forwards;
+    opacity:0; transform: translateY(20px);
+  }
+
+  .name{
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .divider{
+    width:60px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2rem 0;
+    animation: reveal 1.6s ease .7s forwards;
+    opacity:0;
+  }
+
+  .letter{
+    max-width: 620px;
+    background: rgba(255,246,242,0.05);
+    border: 1px solid rgba(231,185,117,0.25);
+    border-radius: 4px;
+    padding: 2.4rem 2.2rem;
+    backdrop-filter: blur(6px);
+    animation: reveal 1.6s ease 1s forwards;
+    opacity:0; transform: translateY(20px);
+    position:relative;
+  }
+  .letter::before{
+    content:"❝";
+    position:absolute; top:-22px; left:24px;
+    font-size:2.4rem; color: var(--rose); background: #1c0a15; padding:0 8px;
+  }
+  .letter p{
+    font-size: 1.05rem; line-height:1.9; color:#f6e4e8; text-align:left;
+    margin-bottom: 1rem;
+  }
+  .signature{
+    margin-top:1.4rem; text-align:right; font-style:italic; color: var(--gold);
+  }
+
+  .cake-row{
+    margin-top: 3rem;
+    display:flex; align-items:center; gap:.8rem;
+    animation: reveal 1.6s ease 1.3s forwards;
+    opacity:0;
+  }
+  .cake-row span{ font-size:1.8rem; animation: bob 2.4s ease-in-out infinite; }
+  .cake-row span:nth-child(2){ animation-delay:.2s; }
+  .cake-row span:nth-child(3){ animation-delay:.4s; }
+  @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  footer{
+    position:relative; z-index:2;
+    text-align:center; padding: 2rem; font-size:.8rem; color:#8a6070; letter-spacing:.1em;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="hearts" id="hearts"></div>
+
+<main>
+  <div class="eyebrow">Tug'ilgan kuning muborak</div>
+  <h1>Sevgilim, <span class="name">bugun sen bilan</span><br>hayotim yorishadi</h1>
+  <p class="subtitle">
+    Har bir yil sen bilan o'tgan har bir lahza — menga berilgan eng katta sovg'a.
+    Bugun esa faqat va faqat SENING kuning.
+  </p>
+
+  <div class="divider"></div>
+
+  <div class="letter">
+    <p>Sevgilim, seni ko'rgan har lahzam eng go'zal lahzaga aylanadi. Sening kulging — kunimni yorug' qiladi, ovozing — yuragimga tinchlik olib keladi.</p>
+    <p>Tug'ilgan kuning bilan, farishtam! Sen bilan o'tkazgan har bir soniyani qadrlayman va sen bilan yana ming-minglab bunday kunlarni birga kutib olishni orzu qilaman.</p>
+    <p>Seni juda-juda sevaman — bugun, ertaga va abadiy.</p>
+    <div class="signature">— seni sevuvchi yuragingdan</div>
+  </div>
+
+  <div class="cake-row">
+    <span>🎂</span><span>🎉</span><span>❤️</span>
+  </div>
+</main>
+
+<footer>tug'ilgan kuning muborak bo'lsin</footer>
+
+<script>
+  const starsC = document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.animationDelay = (Math.random()*3)+'s';
+    starsC.appendChild(s);
+  }
+
+  const heartsC = document.getElementById('hearts');
+  const symbols = ['❤','💕','💗','💖'];
+  function spawnHeart(){
+    const h = document.createElement('div');
+    h.className='heart';
+    h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+    h.style.left = Math.random()*100+'%';
+    h.style.setProperty('--drift', (Math.random()*80-40)+'px');
+    h.style.fontSize = (14+Math.random()*20)+'px';
+    h.style.animationDuration = (7+Math.random()*6)+'s';
+    heartsC.appendChild(h);
+    setTimeout(()=>h.remove(), 14000);
+  }
+  setInterval(spawnHeart, 500);
+  for(let i=0;i<10;i++) setTimeout(spawnHeart, i*300);
+</script>
+
+</body>
+</html>
