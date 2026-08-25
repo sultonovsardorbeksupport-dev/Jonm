@@ -3,138 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sevgilimga ❤️</title>
+<title>Bilolga ❤️</title>
 <style>
   :root{
     --rose: #e8536b;
-    --rose-deep:#b5304a;
     --gold:#e7b975;
     --cream:#fff6f2;
-    --ink:#3a2230;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{
     height:100%;
     background: radial-gradient(ellipse at top, #3a1425 0%, #1c0a15 55%, #0d0509 100%);
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: Georgia, 'Times New Roman', serif;
     color: var(--cream);
-    overflow-x:hidden;
+    overflow:hidden;
   }
-  .stars{
-    position:fixed; inset:0; pointer-events:none; z-index:0;
-  }
-  .star{
-    position:absolute; width:2px; height:2px; background:#fff;
-    border-radius:50%; opacity:.6; animation: twinkle 3s ease-in-out infinite;
-  }
-  @keyframes twinkle{ 0%,100%{opacity:.2} 50%{opacity:1} }
+  .stars{ position:fixed; inset:0; pointer-events:none; z-index:0; }
+  .star{ position:absolute; width:2px; height:2px; background:#fff; border-radius:50%; opacity:.6; animation: twinkle 3s ease-in-out infinite; }
+  @keyframes twinkle{ 0%,100%{opacity:.15} 50%{opacity:1} }
 
-  .hearts{
-    position:fixed; inset:0; pointer-events:none; z-index:1;
-  }
-  .heart{
-    position:absolute; bottom:-10%; font-size:20px; opacity:.75;
-    animation: float 9s linear infinite;
-    color: var(--rose);
-    filter: drop-shadow(0 0 6px rgba(232,83,107,.6));
-  }
-  @keyframes float{
-    0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0;}
-    10%{opacity:.8;}
-    100%{ transform: translateY(-115vh) translateX(var(--drift,30px)) rotate(360deg); opacity:0;}
-  }
+  .hearts{ position:fixed; inset:0; pointer-events:none; z-index:1; }
+  .heart{ position:absolute; bottom:-10%; color:var(--rose); opacity:.7; animation: float 9s linear infinite; filter: drop-shadow(0 0 6px rgba(232,83,107,.6)); }
+  @keyframes float{ 0%{transform:translateY(0) translateX(0) rotate(0deg); opacity:0;} 10%{opacity:.8;} 100%{transform:translateY(-115vh) translateX(var(--drift,30px)) rotate(360deg); opacity:0;} }
 
   main{
     position:relative; z-index:2;
-    min-height:100vh;
+    height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 4vh 5vw;
+  }
+
+  .book{
+    position:relative;
+    width:min(560px, 92vw);
+    height:min(640px, 78vh);
+    perspective: 2200px;
+  }
+
+  .page{
+    position:absolute; inset:0;
+    background: linear-gradient(160deg, rgba(255,246,242,0.06), rgba(255,246,242,0.02));
+    border: 1px solid rgba(231,185,117,0.3);
+    border-radius: 6px;
+    backdrop-filter: blur(6px);
+    padding: 2.6rem 2.2rem;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     text-align:center;
-    padding: 8vh 6vw 12vh;
+    opacity:0;
+    visibility:hidden;
+    transform: rotateY(90deg);
+    transform-origin: left center;
+    transition: transform .8s ease, opacity .5s ease;
+  }
+  .page.active{
+    opacity:1; visibility:visible; transform: rotateY(0deg);
   }
 
   .eyebrow{
-    letter-spacing:.35em; text-transform:uppercase; font-size:.75rem;
-    color: var(--gold); font-family: Georgia, serif; opacity:.9;
-    margin-bottom: 1.4rem;
+    letter-spacing:.35em; text-transform:uppercase; font-size:.7rem;
+    color: var(--gold); opacity:.85; margin-bottom:1.2rem;
   }
-
-  h1{
-    font-size: clamp(2.4rem, 7vw, 5rem);
-    font-weight:400;
-    line-height:1.08;
+  .page h1{
+    font-size: clamp(1.6rem, 5.5vw, 2.6rem);
+    font-weight:400; line-height:1.2;
     background: linear-gradient(180deg, #ffe3ea 0%, var(--rose) 55%, var(--gold) 100%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
-    margin-bottom: 1.2rem;
-    animation: reveal 1.6s ease forwards;
-    opacity:0; transform: translateY(20px);
+    margin-bottom: 1.1rem;
   }
-  @keyframes reveal{ to{ opacity:1; transform:none; } }
-
-  .subtitle{
-    font-size: clamp(1rem, 2.2vw, 1.3rem);
-    max-width: 560px;
-    line-height:1.75;
-    color:#f3d8de;
-    margin-bottom: 2.4rem;
-    animation: reveal 1.6s ease .4s forwards;
-    opacity:0; transform: translateY(20px);
+  .page p{
+    font-size: clamp(.95rem, 2.4vw, 1.12rem);
+    line-height:1.85; color:#f6e4e8; max-width: 440px;
+  }
+  .page .icon{ font-size:2.2rem; margin-bottom:1rem; }
+  .page .num{
+    position:absolute; top:14px; right:18px; font-size:.75rem; color:var(--gold); opacity:.6; letter-spacing:.15em;
   }
 
-  .name{
+  .nav{
+    position:relative; z-index:2;
+    margin-top: 2rem;
+    display:flex; align-items:center; gap:1.6rem;
+  }
+  .nav button{
+    background: transparent;
+    border: 1px solid var(--gold);
     color: var(--gold);
-    font-style: italic;
+    font-family: Georgia, serif;
+    font-size: .85rem;
+    letter-spacing: .12em;
+    padding: .6rem 1.3rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background .3s, color .3s;
   }
+  .nav button:hover{ background: var(--gold); color:#1c0a15; }
+  .nav button:disabled{ opacity:.25; cursor:default; }
+  .nav button:disabled:hover{ background:transparent; color:var(--gold); }
 
-  .divider{
-    width:60px; height:1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 2rem 0;
-    animation: reveal 1.6s ease .7s forwards;
-    opacity:0;
-  }
-
-  .letter{
-    max-width: 620px;
-    background: rgba(255,246,242,0.05);
-    border: 1px solid rgba(231,185,117,0.25);
-    border-radius: 4px;
-    padding: 2.4rem 2.2rem;
-    backdrop-filter: blur(6px);
-    animation: reveal 1.6s ease 1s forwards;
-    opacity:0; transform: translateY(20px);
-    position:relative;
-  }
-  .letter::before{
-    content:"❝";
-    position:absolute; top:-22px; left:24px;
-    font-size:2.4rem; color: var(--rose); background: #1c0a15; padding:0 8px;
-  }
-  .letter p{
-    font-size: 1.05rem; line-height:1.9; color:#f6e4e8; text-align:left;
-    margin-bottom: 1rem;
-  }
-  .signature{
-    margin-top:1.4rem; text-align:right; font-style:italic; color: var(--gold);
-  }
-
-  .cake-row{
-    margin-top: 3rem;
-    display:flex; align-items:center; gap:.8rem;
-    animation: reveal 1.6s ease 1.3s forwards;
-    opacity:0;
-  }
-  .cake-row span{ font-size:1.8rem; animation: bob 2.4s ease-in-out infinite; }
-  .cake-row span:nth-child(2){ animation-delay:.2s; }
-  .cake-row span:nth-child(3){ animation-delay:.4s; }
-  @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .dots{ display:flex; gap:.4rem; }
+  .dot{ width:6px; height:6px; border-radius:50%; background: rgba(231,185,117,0.3); transition: background .3s, transform .3s; }
+  .dot.active{ background: var(--gold); transform: scale(1.3); }
 
   footer{
-    position:relative; z-index:2;
-    text-align:center; padding: 2rem; font-size:.8rem; color:#8a6070; letter-spacing:.1em;
+    position:relative; z-index:2; text-align:center; padding-bottom:1.4rem;
+    font-size:.72rem; color:#8a6070; letter-spacing:.1em;
   }
 
-  @media (prefers-reduced-motion: reduce){
-    *{ animation: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
 </style>
 </head>
 <body>
@@ -143,32 +117,123 @@
 <div class="hearts" id="hearts"></div>
 
 <main>
-  <div class="eyebrow">Tug'ilgan kuning muborak</div>
-  <h1>Sevgilim, <span class="name">bugun sen bilan</span><br>hayotim yorishadi</h1>
-  <p class="subtitle">
-    Har bir yil sen bilan o'tgan har bir lahza — menga berilgan eng katta sovg'a.
-    Bugun esa faqat va faqat SENING kuning.
-  </p>
+  <div class="book" id="book">
 
-  <div class="divider"></div>
+    <div class="page active" data-i="1">
+      <span class="num">01 / 10</span>
+      <div class="eyebrow">Tug'ilgan kuning muborak</div>
+      <div class="icon">🎂</div>
+      <h1>Bilolim, bugun sening kuning</h1>
+      <p>10 ta varoq — har biri seni qanchalik sevishimning bir qismi. Sekin-sekin ochib bor.</p>
+    </div>
 
-  <div class="letter">
-    <p>Sevgilim, seni ko'rgan har lahzam eng go'zal lahzaga aylanadi. Sening kulging — kunimni yorug' qiladi, ovozing — yuragimga tinchlik olib keladi.</p>
-    <p>Tug'ilgan kuning bilan, farishtam! Sen bilan o'tkazgan har bir soniyani qadrlayman va sen bilan yana ming-minglab bunday kunlarni birga kutib olishni orzu qilaman.</p>
-    <p>Seni juda-juda sevaman — bugun, ertaga va abadiy.</p>
-    <div class="signature">— seni sevuvchi yuragingdan</div>
+    <div class="page" data-i="2">
+      <span class="num">02 / 10</span>
+      <div class="icon">🌙</div>
+      <h1>Sen — eng go'zal tasodifim</h1>
+      <p>Hayotimda sen paydo bo'lgan kun — men uchun eng katta baxt boshlangan kun edi.</p>
+    </div>
+
+    <div class="page" data-i="3">
+      <span class="num">03 / 10</span>
+      <div class="icon">😊</div>
+      <h1>Kulging</h1>
+      <p>Sening kulging — mening eng yomon kunimni ham yaxshi kunga aylantira oladi.</p>
+    </div>
+
+    <div class="page" data-i="4">
+      <span class="num">04 / 10</span>
+      <div class="icon">🕊️</div>
+      <h1>Ovozing</h1>
+      <p>Ovozingni eshitganimda yuragim tinchlanadi, go'yo hamma tashvishlar unutiladi.</p>
+    </div>
+
+    <div class="page" data-i="5">
+      <span class="num">05 / 10</span>
+      <div class="icon">💫</div>
+      <h1>Qadrlash</h1>
+      <p>Seni bor-yo'g'ing bilan, xarakteringning har bir qirrasi bilan qadrlayman, Bilolim.</p>
+    </div>
+
+    <div class="page" data-i="6">
+      <span class="num">06 / 10</span>
+      <div class="icon">🌸</div>
+      <h1>Nozikliging</h1>
+      <p>Sen nozik va kuchli — bu kamdan-kam kishida bo'ladigan uyg'unlik. Men bunga qoyil qolaman.</p>
+    </div>
+
+    <div class="page" data-i="7">
+      <span class="num">07 / 10</span>
+      <div class="icon">🤍</div>
+      <h1>Sabr-toqating</h1>
+      <p>Meni tushunishga urinishing, sabr qilishing — buning qadriga men doim yetaman.</p>
+    </div>
+
+    <div class="page" data-i="8">
+      <span class="num">08 / 10</span>
+      <div class="icon">🔥</div>
+      <h1>Sevgim</h1>
+      <p>Seni sevishim kundan-kunga ortib bormoqda — bu his hech qachon so'nmaydi.</p>
+    </div>
+
+    <div class="page" data-i="9">
+      <span class="num">09 / 10</span>
+      <div class="icon">🎁</div>
+      <h1>Orzularim</h1>
+      <p>Sen bilan yana ko'plab tug'ilgan kunlarni, yillarni birga kutib olishni orzu qilaman.</p>
+    </div>
+
+    <div class="page" data-i="10">
+      <span class="num">10 / 10</span>
+      <div class="icon">❤️</div>
+      <h1>Tug'ilgan kuning muborak, Bilolim</h1>
+      <p>Seni juda-juda sevaman — bugun, ertaga va abadiy. Yoningdaman, doim.</p>
+    </div>
+
   </div>
 
-  <div class="cake-row">
-    <span>🎂</span><span>🎉</span><span>❤️</span>
+  <div class="nav">
+    <button id="prevBtn">◀ Orqaga</button>
+    <div class="dots" id="dots"></div>
+    <button id="nextBtn">Keyingi ▶</button>
   </div>
 </main>
 
-<footer>tug'ilgan kuning muborak bo'lsin</footer>
+<footer>Bilol uchun, sevgi bilan</footer>
 
 <script>
+  const total = 10;
+  let current = 1;
+
+  const dotsC = document.getElementById('dots');
+  for(let i=1;i<=total;i++){
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===1 ? ' active' : '');
+    d.dataset.i = i;
+    dotsC.appendChild(d);
+  }
+
+  function render(){
+    document.querySelectorAll('.page').forEach(p=>{
+      p.classList.toggle('active', Number(p.dataset.i)===current);
+    });
+    document.querySelectorAll('.dot').forEach(d=>{
+      d.classList.toggle('active', Number(d.dataset.i)===current);
+    });
+    document.getElementById('prevBtn').disabled = current===1;
+    document.getElementById('nextBtn').disabled = current===total;
+    document.getElementById('nextBtn').textContent = current===total ? 'Oxiri ❤' : 'Keyingi ▶';
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', ()=>{ if(current>1){ current--; render(); } });
+  document.getElementById('nextBtn').addEventListener('click', ()=>{ if(current<total){ current++; render(); } });
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowRight' && current<total){ current++; render(); }
+    if(e.key==='ArrowLeft' && current>1){ current--; render(); }
+  });
+
   const starsC = document.getElementById('stars');
-  for(let i=0;i<80;i++){
+  for(let i=0;i<70;i++){
     const s = document.createElement('div');
     s.className='star';
     s.style.left = Math.random()*100+'%';
@@ -185,13 +250,13 @@
     h.textContent = symbols[Math.floor(Math.random()*symbols.length)];
     h.style.left = Math.random()*100+'%';
     h.style.setProperty('--drift', (Math.random()*80-40)+'px');
-    h.style.fontSize = (14+Math.random()*20)+'px';
-    h.style.animationDuration = (7+Math.random()*6)+'s';
+    h.style.fontSize = (12+Math.random()*16)+'px';
+    h.style.animationDuration = (8+Math.random()*6)+'s';
     heartsC.appendChild(h);
-    setTimeout(()=>h.remove(), 14000);
+    setTimeout(()=>h.remove(), 15000);
   }
-  setInterval(spawnHeart, 500);
-  for(let i=0;i<10;i++) setTimeout(spawnHeart, i*300);
+  setInterval(spawnHeart, 700);
+  for(let i=0;i<6;i++) setTimeout(spawnHeart, i*300);
 </script>
 
 </body>
